@@ -29,12 +29,12 @@ def ingest_data():
                 except ValueError:
                     # Si hay error al convertir a int o float, asumimos que es una línea adicional de palabras clave
                     if len(data) > 0:
-                        principales_palabras_clave = ' '.join(columns)
-                        data[-1][-1] += ', ' + principales_palabras_clave
+                        palabras_clave = ' '.join(columns)
+                        palabras_clave = palabras_clave.replace('.', '').replace(',', ', ')
+                        data[-1][-1] += ', ' + palabras_clave
 
     headers = ['cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave']
     df = pd.DataFrame(data, columns=headers)
-    df['principales_palabras_clave'] = df['principales_palabras_clave'].str.replace('.', '').str.replace(',', ', ')
     df.columns = df.columns.str.replace(' ', '_').str.lower()
     return df
 
